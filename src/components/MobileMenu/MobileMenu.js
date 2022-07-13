@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 
 import { QUERIES, WEIGHTS } from '../../constants';
@@ -10,8 +10,9 @@ import Icon from '../Icon';
 import VisuallyHidden from '../VisuallyHidden';
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
+
   return (
-    <Overlay isOpen={isOpen} onDismiss={onDismiss}>
+    <Overlay isOpen={isOpen} onDismiss={onDismiss} >
       <Content aria-label="Menu">
         <CloseButton onClick={onDismiss}>
           <Icon id="close" />
@@ -36,6 +37,24 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
   );
 };
 
+const fadeIn = keyframes`
+  from {
+    background: initial;
+  }
+  to {
+    background: var(--color-backdrop);
+  }
+`
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+`
+
 const Overlay = styled(DialogOverlay)`
   position: fixed;
   top: 0;
@@ -45,6 +64,11 @@ const Overlay = styled(DialogOverlay)`
   background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+
+  @media (prefers-reduced-motion: no-preference){
+    animation: ${fadeIn} 500ms;
+    animation-fill-mode: both;
+  }
 `;
 
 const Content = styled(DialogContent)`
@@ -54,6 +78,12 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${slideIn} 500ms;
+    animation-fill-mode: both;
+    animation-delay: 200ms;
+  }
 `;
 
 const CloseButton = styled(UnstyledButton)`

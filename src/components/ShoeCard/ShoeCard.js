@@ -79,7 +79,7 @@ const Wrapper = styled.article``;
 
 const ImageWrapper = styled.div`
   position: relative;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 `;
 
 const ImageConstraint = styled.div`
@@ -92,11 +92,14 @@ const Image = styled.img`
   width: 100%;
   display: block;
   border-radius: var(--image-border-radius);
-  transition: transform 300ms ease-in;
+  
   transform-origin: 50% 80%;
-  ${Link}:hover & {
-    transform: scale(1.1);
-    transition: transform 150ms ease-out;
+  transition: transform 300ms ease-in;
+  @media (prefers-reduced-motion: no-preference) {
+    ${Link}:hover & {
+      transform: scale(1.1);
+      transition: transform 150ms ease-out;
+    }
   }
 `;
 

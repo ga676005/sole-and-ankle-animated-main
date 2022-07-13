@@ -20,12 +20,30 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLink href="/sale">
+            <span>Sale</span>
+            <span aria-hidden>Sale</span>
+          </NavLink>
+          <NavLink href="/new">
+            <span>New&nbsp;Releases</span>
+            <span aria-hidden>New&nbsp;Releases</span>
+          </NavLink>
+          <NavLink href="/men">
+            <span>Men</span>
+            <span aria-hidden>Men</span>
+          </NavLink>
+          <NavLink href="/women">
+            <span>Women</span>
+            <span aria-hidden>Women</span>
+          </NavLink>
+          <NavLink href="/kids">
+            <span>Kids</span>
+            <span aria-hidden>Kids</span>
+          </NavLink>
+          <NavLink href="/collections">
+            <span>Collections</span>
+            <span aria-hidden>Collections</span>
+          </NavLink>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -57,7 +75,8 @@ const MainHeader = styled.div`
   align-items: baseline;
   padding: 18px 32px;
   border-bottom: 1px solid var(--color-gray-300);
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   @media ${QUERIES.tabletAndSmaller} {
     justify-content: space-between;
@@ -120,9 +139,34 @@ const NavLink = styled.a`
   text-decoration: none;
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 36px;
+  padding-inline: 4px;
 
   &:first-of-type {
     color: var(--color-secondary);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    & span {
+      transition: transform 200ms ease-out;
+    }
+  
+    & span:nth-child(2){
+      transform: translateY(100%);
+      font-weight: bold;
+    }
+  
+    &:hover span:first-child {
+      transform: translateY(-100%);
+    }
+  
+    &:hover span:nth-child(2) {
+      transform: translateY(-100%);
+    }
+
   }
 `;
 
