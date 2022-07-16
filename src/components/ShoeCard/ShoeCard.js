@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
 
 import { WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
@@ -75,7 +75,9 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -88,10 +90,20 @@ const ImageConstraint = styled.div`
   border-radius: var(--image-border-radius);
 `;
 
+const hueRotate = keyframes`
+  from {
+    filter: hue-rotate(0deg);
+  }
+  from {
+    filter: hue-rotate(360deg);
+  }
+`
+
 const Image = styled.img`
   width: 100%;
   display: block;
   border-radius: var(--image-border-radius);
+
   
   transform-origin: 50% 80%;
   transition: transform 300ms ease-in;
@@ -99,6 +111,8 @@ const Image = styled.img`
     ${Link}:hover & {
       transform: scale(1.1);
       transition: transform 150ms ease-out;
+
+      animation: ${hueRotate} 5000ms linear infinite ;
     }
   }
 `;
@@ -140,6 +154,14 @@ const Flag = styled.div`
   font-weight: ${WEIGHTS.bold};
   color: var(--color-white);
   border-radius: 2px;
+  will-change: transform;
+
+  transition: transform 300ms ease-in;
+  ${Link}:hover & {
+    transform: scale(1.1);
+    transition: transform 350ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transition-delay: 150ms;
+  }
 `;
 
 const SaleFlag = styled(Flag)`

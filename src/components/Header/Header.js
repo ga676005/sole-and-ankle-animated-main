@@ -20,6 +20,27 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
+          <NavLink href="/sale" data-before="Sale">
+            Sale
+          </NavLink>
+          <NavLink href="/new" data-before="New&nbsp;Releases">
+            New&nbsp;Releases
+          </NavLink>
+          <NavLink href="/men" data-before="Men">
+            Men
+          </NavLink>
+          <NavLink href="/women" data-before="Women">
+            Women
+          </NavLink>
+          <NavLink href="/kids" data-before="Kids">
+            Kids
+          </NavLink>
+          <NavLink href="/collections" data-before="Collections">
+            Collections
+          </NavLink>
+
+          {/*
+            // style A
           <NavLink href="/sale">
             <span>Sale</span>
             <span aria-hidden>Sale</span>
@@ -43,7 +64,7 @@ const Header = () => {
           <NavLink href="/collections">
             <span>Collections</span>
             <span aria-hidden>Collections</span>
-          </NavLink>
+          </NavLink> */}
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -141,16 +162,19 @@ const NavLink = styled.a`
   font-weight: ${WEIGHTS.medium};
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  height: 36px;
-  padding-inline: 4px;
+
 
   &:first-of-type {
     color: var(--color-secondary);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    & span {
+    /* style A  
+      overflow: hidden;
+      height: 36px;
+    */
+
+    /* & span {
       transition: transform 200ms ease-out;
     }
   
@@ -165,9 +189,48 @@ const NavLink = styled.a`
   
     &:hover span:nth-child(2) {
       transform: translateY(-100%);
+    } */
+
+    /* style B */
+    padding: 5px 0;
+    position: relative;
+    isolation: isolate;
+    &::before {
+      position: absolute;
+      content: attr(data-before);
+      top:0;
+      left: 0;
+      padding: 5px 0 5px;
+      max-width: 0;
+      overflow: hidden;
+      color: var(--color-secondary);
+      transition: max-width 300ms ease-in;
+      will-change: max-width;
+      /* border-bottom: 2px solid var(--color-secondary); */
+    }
+    &:hover::before {
+      max-width: 100%;
     }
 
+    &::after {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-secondary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: 300ms ease-in;
+    }
+
+    &:hover::after {
+      transform-origin: right;
+      transform: scaleX(1);
+    }
   }
+
+
 `;
 
 export default Header;
