@@ -222,6 +222,7 @@ const NavLink = styled.a`
       transform: scaleX(0);
       transform-origin: left;
       transition: 300ms ease-in;
+      transition-property: transform, transform-origin;
     }
 
     &:hover::after {
@@ -229,8 +230,6 @@ const NavLink = styled.a`
       transform: scaleX(1);
     }
   }
-
-
 `;
 
 export default Header;
